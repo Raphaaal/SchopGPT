@@ -10,7 +10,7 @@
 4. Use `fine_tune.ipynb`
 
 ## Demo
-5. TODO
+5. TODO with front-end
 
 ## Resources
 - Pitch deck: [Google Slides](https://docs.google.com/presentation/d/15JW2U2Y1SuPgasuZ5mO-8KWMynflSZjbztj-KGzhNpM/)
