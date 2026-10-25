@@ -1,3 +1,9 @@
+import os
+
+from dotenv import load_dotenv
+from mistralai.client import MistralClient
+from mistralai.models.chat_completion import ChatMessage
+
 debate_tree = {
     "0": {
         "question": "Is the opponent's argumentation already developed?",
@@ -97,15 +103,6 @@ debate_tree = {
     },
 }
 
-
-import json
-import concurrent.futures
-import random
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
-import os
-from dotenv import load_dotenv
-
 load_dotenv()
 MISTRAL_API_TOKEN = os.getenv("MISTRAL_API_TOKEN")
 model = 'mistral-large-latest'
@@ -158,22 +155,3 @@ def process_debate(history_item):
         return {"history": history_item, "action_id": current_node["id"], "response": ai_action_response}
     else:
         return {"history": history_item, "action_id": None, "response": "No action available"}
-
-def main():
-    with open("histories.json", "r") as f:
-        histories_data = json.load(f)
-
-    flat_list = []
-    for i, hist_d in enumerate(histories_data):
-        for j, (k, v) in enumerate(hist_d.items()):
-            new_hist = {i*10 + j: v}
-            flat_list.append(new_hist)
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
-        results = list(executor.map(process_debate, flat_list))
-
-    with open("debate_results.json", "w") as f_out:
-        json.dump(results, f_out)
-
-if __name__ == "__main__":
-    main() # Processes the generated conversations to produce reply based on tree

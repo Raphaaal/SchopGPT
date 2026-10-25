@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 def process_data(input_file, output_file):
     # Load the input data from a file
@@ -46,13 +47,12 @@ def process_data(input_file, output_file):
         # Add to the final output
         output_data.append({"messages": formatted_messages})
 
-    # Write the output data to a file
+    # Write one JSON object per line (JSONL)
     with open(output_file, 'w') as file:
-        json.dump(output_data, file, indent=4)
+        for item in output_data:
+            file.write(json.dumps(item) + "\n")
 
-# Define the input and output file names
-input_file_name = 'debate_results.json'
-output_file_name = 'ft_dataset.json'
+if __name__ == "__main__":
+    root = Path(__file__).parents[1]
+    process_data(root / "backend" / "debate_results.json", root / "training" / "ft_dataset.jsonl")
 
-# Call the function to process and write the data
-process_data(input_file_name, output_file_name)
