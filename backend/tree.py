@@ -106,7 +106,7 @@ from mistralai.models.chat_completion import ChatMessage
 import os
 from dotenv import load_dotenv
 
-
+load_dotenv()
 MISTRAL_API_TOKEN = os.getenv("MISTRAL_API_TOKEN")
 model = 'mistral-large-latest'
 client = MistralClient(api_key=MISTRAL_API_TOKEN)
