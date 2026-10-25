@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from tree import process_debate
+from backend.tree import process_debate
 
 app = FastAPI()
 

@@ -7,8 +7,8 @@ from pathlib import Path
 
 import gradio as gr
 
-import tree
-from app import post_model_call
+from backend import tree
+from backend.app import post_model_call
 
 STRATEGIES = {n["id"]: n["action"] for n in tree.debate_tree.values() if "action" in n}
 DEMOS = json.load(open(Path(__file__).parent / "debate_results.json"))
